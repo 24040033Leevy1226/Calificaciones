@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Unbounded:wght@400;700;900&display=swap');
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --orange: #ff4d00;
+    --amber: #ffb400;
+    --muted: #8a7f6e;
+}
+
+html,
+body {
+    min-height: 100vh;
+    font-family: 'Space Mono', monospace;
+    background: var(--paper);
+    overflow-x: hidden;
+}
+
+
+/* ── Grid background ── */
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image: linear-gradient(rgba(13, 13, 13, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(13, 13, 13, .07) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+
+/* ── Diagonal stripe accent corner ── */
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 260px;
+    height: 260px;
+    z-index: 0;
+    background: repeating-linear-gradient( -45deg, var(--orange) 0px, var(--orange) 4px, transparent 4px, transparent 18px);
+    opacity: .12;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+
+/* ── Layout ── */
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+}
+
+
+/* ── Card ── */
+
+.container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 460px;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    overflow: hidden;
+    animation: popIn .4s cubic-bezier(.34, 1.56, .64, 1) both;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(.94) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+/* ── H1 as header block ── */
+
+h1 {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    padding: 1.8rem 2.2rem 1.6rem;
+    line-height: 1;
+    position: relative;
+}
+
+
+/* Striped bottom bar on header */
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: repeating-linear-gradient( 90deg, var(--orange) 0px, var(--orange) 12px, var(--amber) 12px, var(--amber) 24px, var(--ink) 24px, var(--ink) 28px);
+}
+
+
+/* ── Labels ── */
+
+label {
+    display: block;
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 1.2rem 2.2rem 0.35rem;
+}
+
+
+/* First label gets a bit more top space after the header bar */
+
+label:first-of-type {
+    padding-top: 1.8rem;
+}
+
+
+/* ── Inputs ── */
+
+input[type="text"],
+input[type="number"] {
+    display: block;
+    width: calc(100% - 4.4rem);
+    margin: 0 2.2rem;
+    padding: .72rem 1rem;
+    background: var(--cream);
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    font-size: .9rem;
+    outline: none;
+    transition: box-shadow .15s, background .15s, border-color .15s;
+    -webkit-appearance: none;
+}
+
+input::placeholder {
+    color: var(--muted);
+    opacity: .6;
+}
+
+input:focus {
+    background: #fff;
+    border-color: var(--orange);
+    box-shadow: 3px 3px 0 var(--orange);
+}
+
+
+/* Remove number spinners */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+
+/* ── Readonly result inputs ── */
+
+input[readonly] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--amber);
+    cursor: default;
+    font-weight: 700;
+}
+
+input[readonly]:focus {
+    box-shadow: none;
+    border-color: var(--ink);
+}
+
+
+/* ── Button ── */
+
+button {
+    display: block;
+    width: calc(100% - 4.4rem);
+    margin: 1.8rem 2.2rem 0;
+    padding: .9rem 1rem;
+    background: var(--orange);
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    cursor: pointer;
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: .75rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    transition: transform .1s, box-shadow .1s;
+    box-shadow: 4px 4px 0 var(--ink);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient( 90deg, rgba(255, 255, 255, .07) 0px, rgba(255, 255, 255, .07) 6px, transparent 6px, transparent 12px);
+}
+
+button:hover {
+    background: #e64400;
+    transform: translate(-1px, -1px);
+    box-shadow: 6px 6px 0 var(--ink);
+}
+
+button:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--ink);
+}
+
+
+/* ── Separator before results ── */
+
+label[for="promedio"] {
+    margin-top: .5rem;
+    padding-top: 1.6rem;
+    border-top: 1px dashed rgba(13, 13, 13, .2);
+}
+
+
+/* ── Bottom spacing ── */
+
+input[id="estatus"] {
+    margin-bottom: 2.2rem;
+}
+
+
+/* ── Responsive ── */
+
+@media (max-width: 420px) {
+    input[type="text"],
+    input[type="number"],
+    button {
+        width: calc(100% - 2.8rem);
+        margin-left: 1.4rem;
+        margin-right: 1.4rem;
+    }
+    label {
+        padding-left: 1.4rem;
+        padding-right: 1.4rem;
+    }
+    h1 {
+        padding-left: 1.4rem;
+        padding-right: 1.4rem;
+    }
+}
